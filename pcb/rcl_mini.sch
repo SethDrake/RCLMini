@@ -11585,6 +11585,8 @@ In this library the device names are the same as the pin names of the symbols, t
 <part name="GND19" library="supply1" deviceset="GND" device=""/>
 <part name="SUPPLY1" library="supply2" deviceset="+4.1V" device=""/>
 <part name="SUPPLY2" library="supply2" deviceset="+4.1V" device=""/>
+<part name="R17" library="rcl" deviceset="R-EU_" device="M0805" value="10k"/>
+<part name="GND20" library="supply1" deviceset="GND" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -11686,6 +11688,8 @@ In this library the device names are the same as the pin names of the symbols, t
 <instance part="GND19" gate="1" x="-60.96" y="199.39"/>
 <instance part="SUPPLY1" gate="P" x="50.8" y="262.89"/>
 <instance part="SUPPLY2" gate="P" x="201.93" y="190.5"/>
+<instance part="R17" gate="G$1" x="129.54" y="165.1"/>
+<instance part="GND20" gate="1" x="138.43" y="160.02"/>
 </instances>
 <busses>
 </busses>
@@ -11893,6 +11897,12 @@ In this library the device names are the same as the pin names of the symbols, t
 <wire x1="-38.1" y1="207.01" x2="-38.1" y2="204.47" width="0.1524" layer="91"/>
 <wire x1="-38.1" y1="204.47" x2="-44.45" y2="204.47" width="0.1524" layer="91"/>
 <junction x="-44.45" y="204.47"/>
+</segment>
+<segment>
+<pinref part="R17" gate="G$1" pin="2"/>
+<pinref part="GND20" gate="1" pin="GND"/>
+<wire x1="134.62" y1="165.1" x2="138.43" y2="165.1" width="0.1524" layer="91"/>
+<wire x1="138.43" y1="165.1" x2="138.43" y2="162.56" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="USB+" class="0">
@@ -12448,6 +12458,13 @@ In this library the device names are the same as the pin names of the symbols, t
 <junction x="201.93" y="170.18"/>
 <pinref part="U4" gate="G$1" pin="PB0"/>
 <wire x1="120.65" y1="170.18" x2="201.93" y2="170.18" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="N$1" class="0">
+<segment>
+<pinref part="U4" gate="G$1" pin="PB2"/>
+<pinref part="R17" gate="G$1" pin="1"/>
+<wire x1="120.65" y1="165.1" x2="124.46" y2="165.1" width="0.1524" layer="91"/>
 </segment>
 </net>
 </nets>

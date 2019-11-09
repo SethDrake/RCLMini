@@ -11527,8 +11527,8 @@ In this library the device names are the same as the pin names of the symbols, t
 <part name="VCCOP3" library="supply1" deviceset="VCCINT" device="" value="VCC_OPAMP"/>
 <part name="GND6" library="supply1" deviceset="GND" device=""/>
 <part name="GND7" library="supply1" deviceset="GND" device=""/>
-<part name="R6" library="rcl" deviceset="R-EU_" device="M0805" value="100"/>
-<part name="R7" library="rcl" deviceset="R-EU_" device="M0805" value="100"/>
+<part name="R6" library="rcl" deviceset="R-EU_" device="M0805" value="150"/>
+<part name="R7" library="rcl" deviceset="R-EU_" device="M0805" value="150"/>
 <part name="GND8" library="supply1" deviceset="GND" device=""/>
 <part name="C6" library="rcl" deviceset="C-EU" device="C0805" value="470p"/>
 <part name="R8" library="rcl" deviceset="R-EU_" device="M0805" value="100"/>
@@ -12130,7 +12130,7 @@ In this library the device names are the same as the pin names of the symbols, t
 <junction x="-71.12" y="217.17"/>
 </segment>
 </net>
-<net name="N$9" class="0">
+<net name="PA1" class="0">
 <segment>
 <pinref part="U4" gate="G$1" pin="PA1"/>
 <wire x1="69.85" y1="167.64" x2="55.88" y2="167.64" width="0.1524" layer="91"/>
@@ -12158,7 +12158,7 @@ In this library the device names are the same as the pin names of the symbols, t
 <junction x="29.21" y="165.1"/>
 </segment>
 </net>
-<net name="N$8" class="0">
+<net name="PA2" class="0">
 <segment>
 <pinref part="R5" gate="G$1" pin="2"/>
 <pinref part="U4" gate="G$1" pin="PA2"/>
@@ -12202,7 +12202,7 @@ In this library the device names are the same as the pin names of the symbols, t
 <wire x1="-45.72" y1="168.91" x2="-48.26" y2="168.91" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="N$7" class="0">
+<net name="PA4" class="0">
 <segment>
 <pinref part="U4" gate="G$1" pin="PA4"/>
 <wire x1="69.85" y1="160.02" x2="55.88" y2="160.02" width="0.1524" layer="91"/>
@@ -12255,7 +12255,7 @@ In this library the device names are the same as the pin names of the symbols, t
 <pinref part="R9" gate="G$1" pin="1"/>
 </segment>
 </net>
-<net name="N$18" class="0">
+<net name="PA5" class="0">
 <segment>
 <pinref part="U4" gate="G$1" pin="PA5"/>
 <wire x1="69.85" y1="157.48" x2="58.42" y2="157.48" width="0.1524" layer="91"/>
@@ -12297,7 +12297,7 @@ In this library the device names are the same as the pin names of the symbols, t
 <wire x1="29.21" y1="78.74" x2="26.67" y2="78.74" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="N$22" class="0">
+<net name="PA7" class="0">
 <segment>
 <pinref part="U4" gate="G$1" pin="PA7"/>
 <wire x1="69.85" y1="152.4" x2="60.96" y2="152.4" width="0.1524" layer="91"/>
@@ -12399,7 +12399,7 @@ In this library the device names are the same as the pin names of the symbols, t
 <wire x1="69.85" y1="175.26" x2="68.58" y2="175.26" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="N$13" class="0">
+<net name="NRST" class="0">
 <segment>
 <pinref part="U4" gate="G$1" pin="NRST"/>
 <pinref part="R12" gate="G$1" pin="1"/>
@@ -12407,7 +12407,7 @@ In this library the device names are the same as the pin names of the symbols, t
 <wire x1="66.04" y1="177.8" x2="66.04" y2="182.88" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="N$14" class="0">
+<net name="PA3" class="0">
 <segment>
 <pinref part="U4" gate="G$1" pin="PA3"/>
 <wire x1="69.85" y1="162.56" x2="57.15" y2="162.56" width="0.1524" layer="91"/>

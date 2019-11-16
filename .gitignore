@@ -1,2 +1,8 @@
 /pcb/001.jpg
 /pcb/pcb_negative.ps
+/firmware/RCLMini/VisualGDB
+/firmware/RCLMini/RCLMini-Debug.vgdbsettings.serge.user
+/firmware/RCLMini/RCLMini.sln.DotSettings.user
+/firmware/RCLMini/RCLMini.vcxproj.user
+/firmware/RCLMini/.vs/RCLMini/v15/*.suo
+/firmware/RCLMini/.vs/RCLMini/v15/Browse.VC.db

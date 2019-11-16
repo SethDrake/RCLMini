@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.902
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RCLMini", "RCLMini.vcxproj", "{8E08EB7B-A532-4A89-96B3-C82108825D81}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|VisualGDB = Debug|VisualGDB
+		Release|VisualGDB = Release|VisualGDB
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8E08EB7B-A532-4A89-96B3-C82108825D81}.Debug|VisualGDB.ActiveCfg = Debug|VisualGDB
+		{8E08EB7B-A532-4A89-96B3-C82108825D81}.Debug|VisualGDB.Build.0 = Debug|VisualGDB
+		{8E08EB7B-A532-4A89-96B3-C82108825D81}.Release|VisualGDB.ActiveCfg = Release|VisualGDB
+		{8E08EB7B-A532-4A89-96B3-C82108825D81}.Release|VisualGDB.Build.0 = Release|VisualGDB
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {89C50EAB-1FF2-4E0D-9B4B-2C9D9581308F}
+	EndGlobalSection
+EndGlobal

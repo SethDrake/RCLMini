@@ -9,6 +9,7 @@
 #define OLED_SCL  GPIO_Pin_6             //PB6
 #define OLED_SDA  GPIO_Pin_7             //PB7
 
+#define BAT_N_SEG 6
 
 /**************************************
  * Display macro
@@ -93,6 +94,7 @@ extern void lcd_gotoxy (uint8_t x ,uint8_t y);
 extern void lcd_putchar (const char c);
 extern void lcd_putstr (const char *str,int fill);
 extern void lcd_putnum (int x, int y,char *str);
+extern void lcd_printBat(int x, int y, int percent);
 void lcd_setcontrast(uint8_t c);
 
 extern char mask;

@@ -68,7 +68,6 @@
 
 #define BAT_MIN 3200
 #define BAT_MAX 4200
-#define BAT_N_SEG 6
 
 #define DEF_CONTRAST 12
 #define DEF_AVERAGES 5

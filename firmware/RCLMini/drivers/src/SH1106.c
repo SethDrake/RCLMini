@@ -239,8 +239,7 @@ void  lcd_putnum (int x, int y,char *str){
 				int n = c - 0x30;
 				if(n < 0) n = c+10;
 
-				buf[cnt] = mask;
-				cnt++;
+				buf[cnt++] = mask;
 
 				for(j=numbers_idx[n]+i; j< numbers_idx[n]+13*3 ; j+=3)
 				{
@@ -250,15 +249,13 @@ void  lcd_putnum (int x, int y,char *str){
 					if ( (*str2 == '.') && (i==0)&&(j>( numbers_idx[n]+13*3 - 9))) dd |= 0x06;
 
 					if (xpos <= SSD1306_WIDTH) {
-						buf[cnt] = dd ^ mask;
-						cnt++;
+						buf[cnt++] = dd ^ mask;
 					}
 				}
 			}
 		}
 
-		buf[cnt] = 0x00;
-		cnt++;
+		buf[cnt++] = 0x00;
 
 		I2C_WriteData(SSD1306_I2C_ADDR, buf, cnt);
 	}
@@ -278,15 +275,13 @@ void __attribute__ ((noinline))  lcd_putchar (const char c){
 	for (uint8_t i = 0; i < 5; i++) {
 		if (xpos < SSD1306_WIDTH)
 		{
-			buf[cnt] = (lcd_font[((cc & 0x7f) * 5) + i]) ^ mask;
+			buf[cnt++] = (lcd_font[((cc & 0x7f) * 5) + i]) ^ mask;
 			xpos++;
-			cnt++;
 		}
 	}
 	if (xpos <= SSD1306_WIDTH) {
-		buf[cnt] =  0x00 ^ mask;
+		buf[cnt++] =  0x00 ^ mask;
 		xpos++;
-		cnt++;
 	}
 
 	I2C_WriteData(SSD1306_I2C_ADDR, buf, cnt);
@@ -306,9 +301,8 @@ void __attribute__ ((noinline))  lcd_putstr (const char *str,int fill ){
 		buf[0] = 0x40;
 		uint8_t cnt = 1;
 		while (xpos <= SSD1306_WIDTH) {
-			buf[cnt] = mask;
+			buf[cnt++] = mask;
 			xpos++;
-			cnt++;
 		}
 		I2C_WriteData(SSD1306_I2C_ADDR, buf, cnt);
 	}
@@ -317,4 +311,39 @@ void __attribute__ ((noinline))  lcd_putstr (const char *str,int fill ){
 void lcd_setcontrast(uint8_t c)
 {
 	sendCommandByte(SSD1306_SetContrast, c * 6 + 47);
+}
+
+
+void lcd_printBat(int x, int y, int percent)
+{
+	uint8_t buf[BAT_N_SEG + 3];
+	buf[0] = 0x40;
+	uint8_t cnt = 1;
+	
+	lcd_gotoxy(x, y);
+
+	if (percent < 0) {
+		percent = 0;
+	}
+	const int active = 1 + (BAT_N_SEG* percent) / 100;
+
+	for (int i = 0; i < BAT_N_SEG; i++)
+	{
+		if (i < active)
+		{
+			buf[cnt++] = 0x7F;
+			buf[cnt++] = 0x7F;
+			buf[cnt++] = 0x00;
+		}
+		else
+		{
+			buf[cnt++] = 0x41;
+			buf[cnt++] = 0x41;
+			buf[cnt++] = 0x41;
+		}
+	}
+	buf[cnt++] = 0x7F;    // tail
+	buf[cnt++] = 0x1C;
+
+	I2C_WriteData(SSD1306_I2C_ADDR, buf, cnt);
 }

@@ -599,10 +599,10 @@ void powerOff(void)
 	eepromSaveParam(EEP_SHUNT, &R, sizeof(R));
 	eepromSaveParam(EEP_PARAMS1, &bitParams, sizeof(bitParams));
 
-	AFIO->EXTICR[3] = AFIO_EXTICR1_EXTI3_PB;
-	EXTI->FTSR = EXTI_FTSR_TR3;
+	AFIO->EXTICR[2] = AFIO_EXTICR2_EXTI5_PB;
+	EXTI->FTSR = EXTI_FTSR_TR5;
 	EXTI->IMR = 0;
-	EXTI->EMR = EXTI_EMR_MR3;
+	EXTI->EMR = EXTI_EMR_MR5;
 	EXTI->PR = 0x0003FFFF;
 
 	DAC->CR  = 0;
@@ -614,7 +614,7 @@ void powerOff(void)
 
 	//lcd_write(COMMAND, 0xA5); // DAL
 	//lcd_write(COMMAND, 0xAE); // turn off display
-	//SSD1306_WRITECOMMAND(0xAE); /*display off*/
+	sleepMode(1); /*display off*/
 
 	GPIOA->BSRR = GPIO_Pin_3;  // ANALOG OFF
 	//GPIOA->BRR = GPIO_Pin_15;  // BACKLIGHT OFF
@@ -623,13 +623,13 @@ void powerOff(void)
 	PWR->CR &= ~(PWR_CR_PDDS | PWR_CR_LPDS);
 	PWR->CR |= PWR_CR_LPDS;
 
-	while (!(GPIOB->IDR & GPIO_Pin_3));
+	while (!(GPIOB->IDR & GPIO_Pin_5));
 
 	apo = APO_MAX;
 	while (cnt < 1000000)
 	{
 		//if (cnt > 400000) GPIOA->BSRR = GPIO_Pin_15;  // BACKLIGHT ON
-		if(!(GPIOB->IDR & GPIO_Pin_3))cnt++;
+		if(!(GPIOB->IDR & GPIO_Pin_5))cnt++;
 		else
 		{
 			if (cnt > 400000){ apo = APO_4MIN; break;}//512 = 4min
@@ -1398,34 +1398,7 @@ int editBF(int sel, char* str, int btns) {
 //----------------------------------------------------------------------------
 void printBat(int x, int y, int percent)
 {
-	/*lcd_gotoxy(x, y);
-
-	if (percent < 0)
-		percent = 0;
-	int active = 1 + (BAT_N_SEG* percent) / 100;
-
-	I2C_Start();
-	I2C_WriteData(SSD1306_I2C_ADDR);
-	I2C_WriteData(0x40);
-
-	for (int i = 0; i < BAT_N_SEG; i++)
-	{
-		if (i < active)
-		{
-			I2C_WriteData(0x7F);
-			I2C_WriteData(0x7F);
-			I2C_WriteData(0x00);
-		}
-		else
-		{
-			I2C_WriteData(0x41);
-			I2C_WriteData(0x41);
-			I2C_WriteData(0x41);
-		}
-	}
-	I2C_WriteData(0x7F);  // tail
-	I2C_WriteData(0x1C);
-	I2C_Stop();*/
+	lcd_printBat(x, y, percent);
 }
 //----------------------------------------------------------------------------
 
@@ -1473,9 +1446,9 @@ int main(void)
 	GPIOA->BRR = GPIO_Pin_0;  // GUARD ON
 	GPIOA->BRR = GPIO_Pin_3;  // ANALOG ON
 
+	// buttons
 	GPIO_InitTypeDef  GPIO_InitStructure;
-
-	GPIO_InitStructure.GPIO_Pin    = GPIO_Pin_3 | GPIO_Pin_4 | GPIO_Pin_5;
+	GPIO_InitStructure.GPIO_Pin    = GPIO_Pin_5 | GPIO_Pin_4 | GPIO_Pin_3;
 	GPIO_InitStructure.GPIO_Mode   = GPIO_Mode_IPU;
 	GPIO_InitStructure.GPIO_Speed  = GPIO_Speed_50MHz;
 	GPIO_Init(GPIOB, &GPIO_InitStructure);
@@ -1645,11 +1618,6 @@ int main(void)
 	//setBacklight(getBf(BIT_BL_MODE));
 	lcd_clear();
 	
-	//printFloat(0, 2, 123.45f, "\\");
-	//printFloat(0, 5, 123.45f, "H");
-	//lcd_putnum(5, 5, "123.45");
-
-
 	//	int xstep=0,zidx = 0;
 
 	while(1)

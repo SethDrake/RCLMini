@@ -213,6 +213,9 @@
     <ClCompile Include="main.c">
       <Filter>Source files</Filter>
     </ClCompile>
+    <ClCompile Include="drivers\src\ssd1306.c">
+      <Filter>Source files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="drivers\inc\eeprom.h">
@@ -234,6 +237,9 @@
       <Filter>Header files</Filter>
     </ClInclude>
     <ClInclude Include="drivers\inc\SH1106.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="drivers\inc\ssd1306.h">
       <Filter>Header files</Filter>
     </ClInclude>
   </ItemGroup>

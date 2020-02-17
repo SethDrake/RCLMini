@@ -1,4 +1,4 @@
-#include "SH1106.h"
+#include "ssd1306.h"
 #include "lcd_generic_font.h"
 
 #include "stm32f10x.h"
@@ -74,7 +74,7 @@ void sendCommand(uint8_t cmd, uint8_t* pBuffer, uint16_t NumByteToWrite)
 	{
 		buf[i + 2] = pBuffer[i];		
 	}
-	I2C_WriteData(SH1106_I2C_ADDR, buf, NumByteToWrite + 2);
+	I2C_WriteData(SSD1306_I2C_ADDR, buf, NumByteToWrite + 2);
 }
 
 void sendCommandByte(uint8_t cmd, uint8_t value)
@@ -90,7 +90,7 @@ void sendJustCommand(uint8_t cmd)
 void sendData(uint8_t* pBuffer, uint16_t NumByteToWrite)
 {
 	pBuffer[0] = 0x40;
-	I2C_WriteData(SH1106_I2C_ADDR, pBuffer, NumByteToWrite);
+	I2C_WriteData(SSD1306_I2C_ADDR, pBuffer, NumByteToWrite);
 }
 
 void sleepMode(uint8_t enabled)
@@ -155,30 +155,30 @@ void __attribute__ ((noinline))  lcd_init (int mode)
 	OLED_PortInit();	
 
 	sleepMode(1); 													// Display Off
-	sendCommandByte(SH1106_SetDisplayClockDivider, 0x80);  				// Set Display Clk Div 0x80
-	sendCommandByte(SH1106_SetMultiplexRatio, SH1106_HEIGHT - 1);    		// Set Multiplex
-	sendCommandByte(SH1106_SetDisplayOffset, 0x00);   					// Set Display Offset
-	sendJustCommand(SH1106_SetDisplayStartLine | 0x00);   				// Set Display Start Line
-	sendCommandByte(SH1106_ChargePumpSetting, 0x14);   					// Charge Pump
+	sendCommandByte(SSD1306_SetDisplayClockDivider, 0x80);  				// Set Display Clk Div 0x80
+	sendCommandByte(SSD1306_SetMultiplexRatio, SSD1306_HEIGHT - 1);    		// Set Multiplex
+	sendCommandByte(SSD1306_SetDisplayOffset, 0x00);   					// Set Display Offset
+	sendJustCommand(SSD1306_SetDisplayStartLine | 0x00);   				// Set Display Start Line
+	sendCommandByte(SSD1306_ChargePumpSetting, 0x14);   					// Charge Pump
 
-	sendCommandByte(SH1106_SetMemAdressingMode, 0x00);  					// Set Memory Addressing Mode - Horizontal
+	sendCommandByte(SSD1306_SetMemAdressingMode, 0x00);  					// Set Memory Addressing Mode - Horizontal
 
-	sendJustCommand(SH1106_SetSegmentRemap | 0x01);   					// Set Segment Remap
-	sendJustCommand(SH1106_SetCOMoutScanDirection | 0x08);   				// Scan direction
-	sendCommandByte(SH1106_SetCOMPinsConfig, 0x12);     					// COM Pins 0x12
-	sendCommandByte(SH1106_SetContrast, 0xCF);
-	sendCommandByte(SH1106_SetPrechargePeriod, 0x1F);   					// Precharge period
-	sendCommandByte(SH1106_SetVCOMHDeselectLevel, 0x40);   				// VCOM Detect
+	sendJustCommand(SSD1306_SetSegmentRemap | 0x01);   					// Set Segment Remap
+	sendJustCommand(SSD1306_SetCOMoutScanDirection | 0x08);   				// Scan direction
+	sendCommandByte(SSD1306_SetCOMPinsConfig, 0x12);     					// COM Pins 0x12
+	sendCommandByte(SSD1306_SetContrast, 0xCF);
+	sendCommandByte(SSD1306_SetPrechargePeriod, 0x1F);   					// Precharge period
+	sendCommandByte(SSD1306_SetVCOMHDeselectLevel, 0x40);   				// VCOM Detect
 
-	sendJustCommand(SH1106_AllPixRAM);  									// Draw from RAM - normal mode
-	sendJustCommand(SH1106_SetInverseOff);   								// Disable inversion
-	sendJustCommand(SH1106_DeactivateScroll); 							// Disable scroll	
+	sendJustCommand(SSD1306_AllPixRAM);  									// Draw from RAM - normal mode
+	sendJustCommand(SSD1306_SetInverseOff);   								// Disable inversion
+	sendJustCommand(SSD1306_DeactivateScroll); 							// Disable scroll	
 
 
-    sendJustCommand(SH1106_PageAddrMode_StartColumnLo | 0x02);		    /*set lower column address*/
-	sendJustCommand(SH1106_PageAddrMode_StartColumnHi | 0x00);			/*set higher column address*/
+    sendJustCommand(SSD1306_PageAddrMode_StartColumnLo | 0x02);		    /*set lower column address*/
+	sendJustCommand(SSD1306_PageAddrMode_StartColumnHi | 0x00);			/*set higher column address*/
 	
-	sendJustCommand(SH1106_PageAddrMode_SetPage | 0x00);				/*set page address*/
+	sendJustCommand(SSD1306_PageAddrMode_SetPage | 0x00);				/*set page address*/
 	
 	sleepMode(0);
 
@@ -194,21 +194,11 @@ void __attribute__ ((noinline))  lcd_init (int mode)
  //
 void __attribute__ ((noinline))  lcd_clear (void)
 {	
-	/*uint8_t buf[2] = { 0, SH1106_WIDTH - 1 + 2 };
-	sendCommand(SH1106_SetColumnAddr, buf, 2);
-	buf[1] = (SH1106_HEIGHT / 8) - 1;
-	sendCommand(SH1106_SetPageAddr, buf, 2);
-	I2C_WriteDataConst(SH1106_I2C_ADDR, 0x40, 0x00, (SH1106_WIDTH * SH1106_HEIGHT));*/
-
-	uint8_t m;
-
-	for (m = 0; m < 8; m++)
-	{
-		sendJustCommand(SH1106_PageAddrMode_SetPage + m);
-		sendJustCommand(SH1106_PageAddrMode_StartColumnLo + 2);
-		sendJustCommand(SH1106_PageAddrMode_StartColumnHi);
-		I2C_WriteDataConst(SH1106_I2C_ADDR, 0x40, 0x00, (SH1106_WIDTH * SH1106_HEIGHT) / 8);
-	}
+	uint8_t buf[2] = { 0, SSD1306_WIDTH - 1 };
+	sendCommand(SSD1306_SetColumnAddr, buf, 2);
+	buf[1] = (SSD1306_HEIGHT / 8) - 1;
+	sendCommand(SSD1306_SetPageAddr, buf, 2);
+	I2C_WriteDataConst(SSD1306_I2C_ADDR, 0x40, 0x00, (SSD1306_WIDTH * SSD1306_HEIGHT));
 }
 
  //
@@ -218,9 +208,9 @@ void __attribute__ ((noinline))  lcd_gotoxy (uint8_t x ,uint8_t y){
 	xpos = x;
 	x = x + 2;
 
-	sendJustCommand(SH1106_PageAddrMode_SetPage + y);
-	sendJustCommand(SH1106_PageAddrMode_StartColumnHi | (x >> 4));
-	sendJustCommand(SH1106_PageAddrMode_StartColumnLo | (x & 0x0f));
+	sendJustCommand(SSD1306_PageAddrMode_SetPage + y);
+	sendJustCommand(SSD1306_PageAddrMode_StartColumnHi | (x >> 4));
+	sendJustCommand(SSD1306_PageAddrMode_StartColumnLo | (x & 0x0f));
 }
 
 
@@ -232,7 +222,7 @@ void  lcd_putnum (int x, int y,char *str){
 
 	char* str2 = str;
 
-	uint8_t buf[SH1106_WIDTH * 2];
+	uint8_t buf[SSD1306_WIDTH * 2];
 	for(i =0;i<3;i++)
 	{
 		lcd_gotoxy(x,y+2-i);
@@ -258,7 +248,7 @@ void  lcd_putnum (int x, int y,char *str){
 
 					if ( (*str2 == '.') && (i==0)&&(j>( numbers_idx[n]+13*3 - 9))) dd |= 0x06;
 
-					if (xpos <= SH1106_WIDTH) {
+					if (xpos <= SSD1306_WIDTH) {
 						buf[cnt++] = dd ^ mask;
 					}
 				}
@@ -267,7 +257,7 @@ void  lcd_putnum (int x, int y,char *str){
 
 		buf[cnt++] = 0x00;
 
-		I2C_WriteData(SH1106_I2C_ADDR, buf, cnt);
+		I2C_WriteData(SSD1306_I2C_ADDR, buf, cnt);
 	}
 }
 
@@ -283,18 +273,18 @@ void __attribute__ ((noinline))  lcd_putchar (const char c){
 	buf[0] = 0x40;
 	uint8_t cnt = 1; 
 	for (uint8_t i = 0; i < 5; i++) {
-		if (xpos < SH1106_WIDTH)
+		if (xpos < SSD1306_WIDTH)
 		{
 			buf[cnt++] = (lcd_font[((cc & 0x7f) * 5) + i]) ^ mask;
 			xpos++;
 		}
 	}
-	if (xpos <= SH1106_WIDTH) {
+	if (xpos <= SSD1306_WIDTH) {
 		buf[cnt++] =  0x00 ^ mask;
 		xpos++;
 	}
 
-	I2C_WriteData(SH1106_I2C_ADDR, buf, cnt);
+	I2C_WriteData(SSD1306_I2C_ADDR, buf, cnt);
 	
 }
 
@@ -304,23 +294,23 @@ void __attribute__ ((noinline))  lcd_putchar (const char c){
 void __attribute__ ((noinline))  lcd_putstr (const char *str,int fill ){
 	char c;
 	while( (c = (*str++))  ) lcd_putchar(c);
-	uint8_t buf[SH1106_WIDTH+1];
+	uint8_t buf[SSD1306_WIDTH+1];
 
 	if (fill)
 	{
 		buf[0] = 0x40;
 		uint8_t cnt = 1;
-		while (xpos <= SH1106_WIDTH) {
+		while (xpos <= SSD1306_WIDTH) {
 			buf[cnt++] = mask;
 			xpos++;
 		}
-		I2C_WriteData(SH1106_I2C_ADDR, buf, cnt);
+		I2C_WriteData(SSD1306_I2C_ADDR, buf, cnt);
 	}
 }
 
 void lcd_setcontrast(uint8_t c)
 {
-	sendCommandByte(SH1106_SetContrast, c * 6 + 47);
+	sendCommandByte(SSD1306_SetContrast, c * 6 + 47);
 }
 
 
@@ -355,5 +345,5 @@ void lcd_printBat(int x, int y, int percent)
 	buf[cnt++] = 0x7F;    // tail
 	buf[cnt++] = 0x1C;
 
-	I2C_WriteData(SH1106_I2C_ADDR, buf, cnt);
+	I2C_WriteData(SSD1306_I2C_ADDR, buf, cnt);
 }

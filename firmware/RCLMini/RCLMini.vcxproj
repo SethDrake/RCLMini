@@ -72,6 +72,10 @@
     <ClCompile Include="drivers\src\eeprom.c" />
     <ClCompile Include="drivers\src\flash.c" />
     <ClCompile Include="drivers\src\SH1106.c" />
+    <ClCompile Include="drivers\src\ssd1306.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|VisualGDB'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|VisualGDB'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="drivers\src\uart.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="system_stm32f10x.c" />
@@ -79,6 +83,10 @@
     <ClInclude Include="drivers\inc\flash.h" />
     <ClInclude Include="drivers\inc\lcd_generic_font.h" />
     <ClInclude Include="drivers\inc\SH1106.h" />
+    <ClInclude Include="drivers\inc\ssd1306.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|VisualGDB'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|VisualGDB'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="drivers\inc\uart.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="stm32f10x_conf.h" />

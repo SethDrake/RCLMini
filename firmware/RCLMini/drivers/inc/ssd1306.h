@@ -1,5 +1,5 @@
-#ifndef __N1110_H__
-#define __N1110_H__
+#ifndef __SSD1306_H__
+#define __SSD1306_H__
 /* { */
 
 #include <stdint.h>
@@ -15,35 +15,35 @@
  * Display macro
  **************************************/
 
-#define SH1106_I2C_ADDR       0x78
+#define SSD1306_I2C_ADDR       0x78
  
-#define SH1106_WIDTH 128
-#define SH1106_HEIGHT 64
+#define SSD1306_WIDTH 128
+#define SSD1306_HEIGHT 64
 
-#define SH1106_SetContrast                 0x81
-#define SH1106_AllPixRAM                   0xA4
-#define SH1106_AllPixOn                    0xA5
-#define SH1106_SetInverseOff               0xA6
-#define SH1106_SetInverseOn                0xA7
-#define SH1106_Sleep                       0xAE
-#define SH1106_Wake                        0xAF
-#define SH1106_DeactivateScroll            0x2E
-#define SH1106_SetMemAdressingMode         0x20    
-#define SH1106_SetColumnAddr               0x21
-#define SH1106_SetPageAddr                 0x22
-#define SH1106_PageAddrMode_SetPage        0xB0
-#define SH1106_PageAddrMode_StartColumnLo  0x00
-#define SH1106_PageAddrMode_StartColumnHi  0x10
-#define SH1106_SetDisplayStartLine         0x40
-#define SH1106_SetSegmentRemap             0xA1
-#define SH1106_SetMultiplexRatio           0xA8
-#define SH1106_SetCOMoutScanDirection      0xC0 
-#define SH1106_SetDisplayOffset            0xD3
-#define SH1106_SetCOMPinsConfig            0xDA
-#define SH1106_SetDisplayClockDivider      0xD5
-#define SH1106_SetPrechargePeriod          0xD9
-#define SH1106_SetVCOMHDeselectLevel       0xDB
-#define SH1106_ChargePumpSetting           0x8D
+#define SSD1306_SetContrast                 0x81
+#define SSD1306_AllPixRAM                   0xA4
+#define SSD1306_AllPixOn                    0xA5
+#define SSD1306_SetInverseOff               0xA6
+#define SSD1306_SetInverseOn                0xA7
+#define SSD1306_Sleep                       0xAE
+#define SSD1306_Wake                        0xAF
+#define SSD1306_DeactivateScroll            0x2E
+#define SSD1306_SetMemAdressingMode         0x20    
+#define SSD1306_SetColumnAddr               0x21
+#define SSD1306_SetPageAddr                 0x22
+#define SSD1306_PageAddrMode_SetPage        0xB0
+#define SSD1306_PageAddrMode_StartColumnLo  0x00
+#define SSD1306_PageAddrMode_StartColumnHi  0x10
+#define SSD1306_SetDisplayStartLine         0x40
+#define SSD1306_SetSegmentRemap             0xA0
+#define SSD1306_SetMultiplexRatio           0xA8
+#define SSD1306_SetCOMoutScanDirection      0xC0 
+#define SSD1306_SetDisplayOffset            0xD3
+#define SSD1306_SetCOMPinsConfig            0xDA
+#define SSD1306_SetDisplayClockDivider      0xD5
+#define SSD1306_SetPrechargePeriod          0xD9
+#define SSD1306_SetVCOMHDeselectLevel       0xDB
+#define SSD1306_ChargePumpSetting           0x8D
 
 
 I2C_TypeDef* lcdI2c;

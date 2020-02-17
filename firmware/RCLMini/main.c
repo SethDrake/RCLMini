@@ -636,7 +636,7 @@ void powerOff(void)
 			//GPIOA->BRR = GPIO_Pin_15;
 			if (cnt > 0)cnt = 0;
 			else cnt--;
-			if (cnt < -100){	EXTI->PR = 0x0003FFFF; __NOP(); __WFE(); }
+			//if (cnt < -100){	EXTI->PR = 0x0003FFFF; __NOP(); __WFE(); }
 		}
 
 	}
@@ -1628,7 +1628,7 @@ int main(void)
 		if (btnState) startTime = hundredMsTick;
 
 
-		if ((startTime + apo) < hundredMsTick) powerOff();
+		//if ((startTime + apo) < hundredMsTick) powerOff();
 
 
 		int menuNew = menu[menuCurrent].m(btnState);
